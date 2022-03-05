@@ -1,11 +1,25 @@
 import React from "react";
+import { Alert } from 'react-bootstrap'
 
-const AlertDissimable= ()=>{
-  return (
-    <div>
+const AlertDissimable = (props) => {
+  const [show, setShow] = React.useState(true);
 
-    </div>
-  )
+  if (show) {
+    return (
+      <Alert
+        variant={props.variant}
+        onClose={() => {
+          props.deleteAlert();
+          setShow(false);
+        }}
+        dismissible>
+        {props.message}
+      </Alert>
+    )
+  }
+  else {
+    return null;
+  }
 }
 
 export default AlertDissimable;

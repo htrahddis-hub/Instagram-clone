@@ -6,7 +6,7 @@ dotenv.config();
 export default sanityClient({
   projectId: "ms6mg5rg",
   dataset: "production",
-  apiVersion: new Date(),
+  apiVersion: "2022-03-04",
   useCdn: false,
   token: process.env.SANITY_API_TOKEN
 });
