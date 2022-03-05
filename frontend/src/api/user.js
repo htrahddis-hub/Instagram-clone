@@ -1,5 +1,5 @@
 export const createUser = (user) => {
-  try {
+
     const requestOptions = {
       method: "POST",
       headers: {
@@ -7,9 +7,22 @@ export const createUser = (user) => {
       },
       body: user,
     }
-    let Data = fetch("/user/createUser", requestOptions);
+    let Data = fetch("/user/createUser", requestOptions)
+    .then((res)=>res.json())
+    .then((data)=>{
+      return data;
+    })
+    .catch(err=>err)
     return Data;
-  } catch (err) {
+}
 
-  }
+export const getProfile= (username)=>{
+
+  const data =fetch("/user/getProfile?user="+username)
+  .then((res)=>res.json())
+  .then((data)=>{
+    return data;
+  })
+  .catch(err=>err)
+  return data;
 }

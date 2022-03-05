@@ -2,7 +2,6 @@ import React from "react";
 import { Form, Button } from 'react-bootstrap';
 import { createUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
-import '../../css/SignUp.css';
 
 const SignUp = (props) => {
   const [firstName, setFirstName] = React.useState("");
@@ -29,19 +28,17 @@ const SignUp = (props) => {
       username: username
     }));
     data.then((data) => {
-      data.json().then((data) => {
-        props.setAlert({
-          variant: 'success',
-          message: 'Your aacount has been created'
-        })
-        props.setUser(data.username);
-        navigate('/');
+      props.setAlert({
+        variant: 'success',
+        message: 'Your aacount has been created'
       })
+      props.setUser(data.username);
+      navigate('/');
     })
   }
 
   return (
-    <Form className="sign-up-form">
+    <Form className="center-form">
       <Form.Group class='mb-2 w-25'>
         <Form.Label>Username</Form.Label>
         <Form.Control type="text" placeholder="Username" onInput={updateUsername} />
