@@ -12,7 +12,7 @@ router.post('/createUser', (req, res) => {
   });
 });
 
-router.get('/getprofile', (req, res) => {
+router.get('/getProfile', (req, res) => {
   const user = req.query.user;
   getProfile(user).then((data)=>{
     res.json(data);

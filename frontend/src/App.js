@@ -56,7 +56,7 @@ function App() {
         </Navbar>
         {!alert || (<AlertDissimable {...alert} deleteAlert={() => setAlert(null)} />)}
         <Routes>
-          <Route path='/' exact element={<AllPost />} />
+          <Route path='/' exact element={<AllPost user={user}/>} />
           <Route path='/login' element={<Login setAlert={setAlert} setUser={setUser}/>} />
           <Route path='/sign-up' element={<SignUp setAlert={setAlert} setUser={setUser}/>} />
           <Route path='/profile/:username' element={<Profile />} />
