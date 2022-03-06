@@ -14,11 +14,6 @@ export default {
       type: "text"
     },
     {
-      title: "First Name",
-      name: "first_name",
-      type: "string"
-    },
-    {
       title: "Created At",
       name: "created_at",
       type: "datetime"
