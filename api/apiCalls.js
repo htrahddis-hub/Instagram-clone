@@ -83,3 +83,16 @@ export const getPostsOfFollowing = (username)=>{
   }`, {username}
   );
 };
+
+export const searchForUsername=(text)=>{
+  return SanityClient.fetch(`*[_type == "user" && username match "${text}*"]{
+    ...,
+    "followers": count(*[_type == "user" && references(^._id)]),
+    photo{
+      assey->{
+        _id,
+        url
+      }
+    }
+  }`,{text});
+}

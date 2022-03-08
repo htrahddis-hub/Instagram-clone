@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser,getProfile } from '../apiCalls.js';
+import { createUser, getProfile, searchForUsername } from '../apiCalls.js';
 
 const router = express.Router();
 
@@ -14,9 +14,14 @@ router.post('/createUser', (req, res) => {
 
 router.get('/getProfile', (req, res) => {
   const user = req.query.user;
-  getProfile(user).then((data)=>{
+  getProfile(user).then((data) => {
     res.json(data);
   });
 });
+
+router.get('/searchForUsername', (req, res) => {
+  const text = req.query.text;
+  searchForUsername(text).then((data) => res.json(data));
+})
 
 export default router;
