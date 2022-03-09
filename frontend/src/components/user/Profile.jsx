@@ -15,9 +15,7 @@ const Profile = (props) => {
 
   const params = useParams();
 
-  React.useEffect(() => {
-    updateProflie(params.username)
-  }, [params.username, props.user]);
+  
 
   const updateFollowing = (profile) => {
     for (let follower of profile.followers) {
@@ -31,38 +29,49 @@ const Profile = (props) => {
   const updateProflie = (username) => {
     const data = getProfile(username);
     data.then((data) => {
-        if (data.length === 0) {
-          props.setAlert({
-            variant: "danger",
-            message: "No user with this username exists."
-          });
-          return
-        }
-        const posts = getPosts(username);
-        posts.then((posts) => {
-          setProfileData(data[0]);
-          setPosts(posts);
-          updateFollowing(data[0]);
-          setOwner(props.user === data[0].username);
-        })
+      if (data.length === 0) {
+        props.setAlert({
+          variant: "danger",
+          message: "No user with this username exists."
+        });
+        return
+      }
+      const posts = getPosts(username);
+      posts.then((posts) => {
+        setProfileData(data[0]);
+        setPosts(posts);
+        updateFollowing(data[0]);
+        setOwner(props.user === data[0].username);
       })
+    })
       .catch((err) => console.error(err));
   }
+  React.useEffect(() => {
+    updateProflie(params.username)
+  }, [params.username, props.user]);
 
   const followClick = () => {
 
   }
 
   const hideEdit = () => {
-
+    updateProflie(params.username);
+    setEditing(false);
   }
 
-  
+
 
   if (profileData == {}) return null;
 
   return (
     <div className="profile">
+      <EditProfile
+        user={props.user}
+        show={editing}
+        hideCallback={hideEdit}
+        profileData={profileData}
+        setAlert={props.setAlert}
+      />
       <div className="profile-banner">
         <h4>@{profileData.username}</h4>
         <div className="profile-data">
@@ -93,7 +102,7 @@ const Profile = (props) => {
         <div className="profile-bio">
           <div className="profile-name">
             <strong>
-              {(profileData.first_name ? profileData.first_name : "") + " " + (profileData.Last_name ? profileData.Last_name : "")}
+              {(profileData.first_name ? profileData.first_name : "") + " " + (profileData.last_name ? profileData.last_name : "")}
             </strong>
           </div>
           <div className="profile-text">

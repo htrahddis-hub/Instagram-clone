@@ -1,5 +1,6 @@
 import express from 'express';
-import { createUser, getProfile, searchForUsername } from '../apiCalls.js';
+import upload from '../middleware.js';
+import { createUser, getProfile, searchForUsername, updateProfile } from '../apiCalls.js';
 
 const router = express.Router();
 
@@ -22,6 +23,12 @@ router.get('/getProfile', (req, res) => {
 router.get('/searchForUsername', (req, res) => {
   const text = req.query.text;
   searchForUsername(text).then((data) => res.json(data));
-})
+});
+
+router.post('/updateProfile', upload.single("file"), (req, res) => {
+  const body = req.body;
+  updateProfile(body.user, body.first_name, body.last_name, body.bio, req.file)
+    .then((data) => res.json(data));
+});
 
 export default router;

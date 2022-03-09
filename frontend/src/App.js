@@ -38,7 +38,7 @@ function App() {
               </Nav>
               <Nav>
                 {user ? <Navbar.Text>
-                  Signed in as: <Link to={'/profile' + user}>{user}</Link> |{" "}
+                  Signed in as: <Link to={'/profile?user=' + user}>{user}</Link> |{" "}
                   <Button
                     type='button'
                     varinat='primary'

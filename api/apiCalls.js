@@ -109,3 +109,30 @@ export const getPosts = (username) => {
     }
   }`, { user: username })
 }
+
+export const updateProfile = (user, first_name, last_name, bio, image) => {
+  if (image) {
+    return SanityClient.assets.upload("image", createReadStream(image.path), { filename: basename(image.path) })
+      .then((data) => {
+        const id = getUserId(user);
+        return id.then((ids) =>
+          SanityClient.patch(ids[0]._id).set({
+            first_name,
+            last_name,
+            bio,
+            photo: { asset: { _ref: data._id } }
+          }).commit()
+        )
+      })
+  }
+  else {
+    const id = getUserId(user);
+    return id.then((ids) =>
+      SanityClient.patch(ids[0]._id).set({
+        first_name,
+        last_name,
+        bio
+      }).commit()
+    )
+  }
+}

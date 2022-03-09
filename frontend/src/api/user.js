@@ -36,3 +36,14 @@ export const getUserList = (searchText) => {
   return data;
 }
 
+export const editUser=(formData)=>{
+  const requestOptions = {
+    method: "POST",
+    body: formData
+  }
+  const data=fetch("/user/updateProfile",requestOptions)
+  .then((res)=>res.json())
+  .then((data)=>data)
+  .catch(err=>err);
+  return data;
+}
