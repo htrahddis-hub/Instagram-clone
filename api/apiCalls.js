@@ -66,7 +66,7 @@ export const getAllPosts = () => {
   }`)
 }
 
-export const getPostsOfFollowing = (username)=>{
+export const getPostsOfFollowing = (username) => {
   return SanityClient.fetch(`*[_type == "user" && username == $username]{
     following[]->{
       "posts": *[_type == "post" && references(^._id)]{
@@ -80,11 +80,11 @@ export const getPostsOfFollowing = (username)=>{
         }
       }
     }
-  }`, {username}
+  }`, { username }
   );
 };
 
-export const searchForUsername=(text)=>{
+export const searchForUsername = (text) => {
   return SanityClient.fetch(`*[_type == "user" && username match "${text}*"]{
     ...,
     "followers": count(*[_type == "user" && references(^._id)]),
@@ -94,5 +94,18 @@ export const searchForUsername=(text)=>{
         url
       }
     }
-  }`,{text});
+  }`, { text });
+}
+
+export const getPosts = (username) => {
+  return SanityClient.fetch(`*[_type == "post" && author->username == $user]{
+    ...,
+    "username": author->username,
+    photo{
+      asset->{
+        _id,
+        url
+      }
+    }
+  }`, { user: username })
 }
