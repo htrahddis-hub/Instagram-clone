@@ -42,8 +42,8 @@ function App() {
                   <Button
                     type='button'
                     varinat='primary'
-                    onClick={() => { setUser(""); setAlert({variant:'warning', message:'You are now signed out!'}) }}>
-                      Logout
+                    onClick={() => { setUser(""); setAlert({ variant: 'warning', message: 'You are now signed out!' }) }}>
+                    Logout
                   </Button>
                 </Navbar.Text>
                   : <Navbar.Text>
@@ -56,12 +56,12 @@ function App() {
         </Navbar>
         {!alert || (<AlertDissimable {...alert} deleteAlert={() => setAlert(null)} />)}
         <Routes>
-          <Route path='/' exact element={<AllPost user={user}/>} />
-          <Route path='/login' element={<Login setAlert={setAlert} setUser={setUser}/>} />
-          <Route path='/sign-up' element={<SignUp setAlert={setAlert} setUser={setUser}/>} />
-          <Route path='/profile/:username' element={<Profile />} />
+          <Route path='/' exact element={<AllPost user={user} />} />
+          <Route path='/login' element={<Login setAlert={setAlert} setUser={setUser} />} />
+          <Route path='/sign-up' element={<SignUp setAlert={setAlert} setUser={setUser} />} />
+          <Route path='/profile/:username' element={<Profile user={user} setAlert={setAlert} />} />
           <Route path='/search' element={<Search />} />
-          <Route path='/create-post' element={<CreatePost user={user} setAlert={setAlert}/>} />
+          <Route path='/create-post' element={<CreatePost user={user} setAlert={setAlert} />} />
 
         </Routes>
       </BrowserRouter>

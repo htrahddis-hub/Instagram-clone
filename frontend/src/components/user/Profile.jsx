@@ -1,9 +1,114 @@
 import React from "react";
+import { useParams } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import EditProfile from './EditProfile';
+import { getProfile } from "../../api/user";
+import { getPosts } from "../../api/post";
+import '../../css/Profile.css';
 
-const Profile= ()=>{
+const Profile = (props) => {
+  const [profileData, setProfileData] = React.useState({});
+  const [posts, setPosts] = React.useState({});
+  const [following, setFollowing] = React.useState(false);
+  const [owner, setOwner] = React.useState(false);
+  const [editing, setEditing] = React.useState(false);
+
+  const params = useParams();
+
+  React.useEffect(() => {
+    updateProflie(params.username)
+  }, [params.username, props.user]);
+
+  const updateFollowing = (profile) => {
+    for (let follower of profile.followers) {
+      if (follower.username === props.user) {
+        setFollowing(true);
+        return;
+      }
+    }
+    setFollowing(false);
+  }
+  const updateProflie = (username) => {
+    const data = getProfile(username);
+    data.then((data) => {
+        if (data.length === 0) {
+          props.setAlert({
+            variant: "danger",
+            message: "No user with this username exists."
+          });
+          return
+        }
+        const posts = getPosts(username);
+        posts.then((posts) => {
+          setProfileData(data[0]);
+          setPosts(posts);
+          updateFollowing(data[0]);
+          setOwner(props.user === data[0].username);
+        })
+      })
+      .catch((err) => console.error(err));
+  }
+
+  const followClick = () => {
+
+  }
+
+  const hideEdit = () => {
+
+  }
+
+  
+
+  if (profileData == {}) return null;
+
   return (
-    <div>
-      profile
+    <div className="profile">
+      <div className="profile-banner">
+        <h4>@{profileData.username}</h4>
+        <div className="profile-data">
+          <img src={profileData.photo ? profileData.photo.asset.url : "/80.png"}
+            id="profile-img"
+          />
+          <div className="vertical-data">
+            <p><strong>Posts</strong></p>
+            <h4>{posts ? posts.length : 0}</h4>
+          </div>
+          <div className="vertical-data">
+            <p><strong>Followers</strong></p>
+            <h4>{profileData.followers ? profileData.followers.length : 0}</h4>
+          </div>
+          <div className="vertical-data">
+            <p><strong>Following</strong></p>
+            <h4>{profileData.following ? profileData.following : 0}</h4>
+          </div>
+          <div className="follow-button">
+            {props.user && !owner ? (
+              <Button variant={following ? "danger" : "primary"} onClick={followClick}>
+                {following ? "Unfollow" : "Follow"}
+              </Button>
+            ) : null}
+            {props.user && owner ? <Button variant="primary" onClick={() => setEditing(true)}>Edit</Button> : null}
+          </div>
+        </div>
+        <div className="profile-bio">
+          <div className="profile-name">
+            <strong>
+              {(profileData.first_name ? profileData.first_name : "") + " " + (profileData.Last_name ? profileData.Last_name : "")}
+            </strong>
+          </div>
+          <div className="profile-text">
+            {profileData.bio}
+          </div>
+        </div>
+      </div>
+      <div className="break"></div>
+      <div className="profile-posts-wrapper">
+        <div className="profile-posts">
+          {posts && posts.length > 0 ? posts.map((post, idx) => {
+            return <img src={post.photo.asset.url} key={idx} />
+          }) : null}
+        </div>
+      </div>
     </div>
   )
 }

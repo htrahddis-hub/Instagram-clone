@@ -8,7 +8,7 @@ const ProfileItem = (props) => {
     <ListGroup.Item>
       <div className="d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center ">
-          <img src={props.photo ? props.photo.asset.url : "https://via.placeholder.com/80"}
+          <img src={props.photo ? props.photo.asset.url : "/80.png"}
             style={{ width: "100%", height: "100%" }} />
           <div>
             <p className="px-2 m-0">

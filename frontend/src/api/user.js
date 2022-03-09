@@ -35,3 +35,4 @@ export const getUserList = (searchText) => {
     .catch((err) => err);
   return data;
 }
+

@@ -24,3 +24,11 @@ export const getPostsOfFollowing = (user) => {
     .catch((err) => err);
   return data;
 }
+
+export const getPosts = (username) => {
+  const data = fetch("/post/getPosts?user=" + username)
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((err) => err);
+  return data;
+}
