@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import EditProfile from './EditProfile';
-import { getProfile } from "../../api/user";
+import { getProfile, addFollower, deleteFollower } from "../../api/user";
 import { getPosts } from "../../api/post";
 import '../../css/Profile.css';
 
@@ -14,8 +14,6 @@ const Profile = (props) => {
   const [editing, setEditing] = React.useState(false);
 
   const params = useParams();
-
-  
 
   const updateFollowing = (profile) => {
     for (let follower of profile.followers) {
@@ -51,7 +49,15 @@ const Profile = (props) => {
   }, [params.username, props.user]);
 
   const followClick = () => {
-
+    if (owner) return;
+    if (!following) {
+      addFollower(props.user,profileData._id)
+      .then((data)=>updateProflie(params.username));
+    }
+    else{
+      deleteFollower(props.user,profileData._id)
+      .then((data)=>updateProflie(params.username)); 
+    }
   }
 
   const hideEdit = () => {

@@ -1,6 +1,6 @@
 import express from 'express';
 import upload from '../middleware.js';
-import { createUser, getProfile, searchForUsername, updateProfile } from '../apiCalls.js';
+import { createUser, getProfile, searchForUsername, updateProfile,addFollower,removeFollower } from '../apiCalls.js';
 
 const router = express.Router();
 
@@ -29,6 +29,16 @@ router.post('/updateProfile', upload.single("file"), (req, res) => {
   const body = req.body;
   updateProfile(body.user, body.first_name, body.last_name, body.bio, req.file)
     .then((data) => res.json(data));
+});
+
+router.post("/addFollower",(req,res)=>{
+  const body=req.body;
+  addFollower(body.user,body.id).then((data)=>res.json(data));
+});
+
+router.delete("/removeFollower",(req,res)=>{
+  const body=req.body;
+  removeFollower(body.user,body.id).then((data)=>res.json(data));
 });
 
 export default router;

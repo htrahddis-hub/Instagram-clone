@@ -1,6 +1,7 @@
 import SanityClient from "./client.js";
 import { createReadStream } from "fs";
 import { basename } from 'path';
+import { nanoid } from "nanoid";
 
 export const createUser = (firstName, lastName, username) => {
   return SanityClient.create({
@@ -89,7 +90,7 @@ export const searchForUsername = (text) => {
     ...,
     "followers": count(*[_type == "user" && references(^._id)]),
     photo{
-      assey->{
+      asset->{
         _id,
         url
       }
@@ -135,4 +136,26 @@ export const updateProfile = (user, first_name, last_name, bio, image) => {
       }).commit()
     )
   }
+}
+
+export const addFollower = (user, followingId) => {
+  const id = getUserId(user);
+  return id.then((ids) =>
+    SanityClient
+      .patch(ids[0]._id)
+      .setIfMissing({ following: [] })
+      .insert("after", "following[-1]", [
+        { _ref: followingId, _key: nanoid(), _type: "reference" },
+      ])
+      .commit())
+}
+
+export const removeFollower = (user, followingId) => {
+  const id = getUserId(user);
+  return id.then((ids) =>
+    SanityClient
+      .patch(ids[0]._id)
+      .unset([`following[_ref=="${followingId}"]`])
+      .commit()
+  );
 }
