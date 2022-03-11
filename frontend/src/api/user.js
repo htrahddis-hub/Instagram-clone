@@ -1,3 +1,5 @@
+const url = "https://userpostapi.herokuapp.com";
+
 export const createUser = (user) => {
 
   const requestOptions = {
@@ -7,7 +9,7 @@ export const createUser = (user) => {
     },
     body: user,
   }
-  let Data = fetch("/user/createUser", requestOptions)
+  let Data = fetch(url + "/user/createUser", requestOptions)
     .then((res) => res.json())
     .then((data) => {
       return data;
@@ -18,7 +20,7 @@ export const createUser = (user) => {
 
 export const getProfile = (username) => {
 
-  const data = fetch("/user/getProfile?user=" + username)
+  const data = fetch(url + "/user/getProfile?user=" + username)
     .then((res) => res.json())
     .then((data) => {
       return data;
@@ -29,51 +31,51 @@ export const getProfile = (username) => {
 
 export const getUserList = (searchText) => {
 
-  const data = fetch("/user/searchForUsername?text=" + searchText)
+  const data = fetch(url + "/user/searchForUsername?text=" + searchText)
     .then((res) => res.json())
     .then((data) => data)
     .catch((err) => err);
   return data;
 }
 
-export const editUser=(formData)=>{
+export const editUser = (formData) => {
   const requestOptions = {
     method: "POST",
     body: formData
   }
-  const data=fetch("/user/updateProfile",requestOptions)
-  .then((res)=>res.json())
-  .then((data)=>data)
-  .catch(err=>err);
+  const data = fetch(url + "/user/updateProfile", requestOptions)
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch(err => err);
   return data;
 }
 
-export const addFollower=(user,id)=>{
-  const requestOptions={
-    method :"POST",
-    headers:{
-      "Content-Type":"application/json"
+export const addFollower = (user, id) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
     },
-    body:JSON.stringify({user:user,id:id})
+    body: JSON.stringify({ user: user, id: id })
   }
-  const data= fetch("/user/addFollower", requestOptions)
-  .then((res)=>res.json())
-  .then((data)=>data)
-  .catch((err)=>err);
+  const data = fetch(url + "/user/addFollower", requestOptions)
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((err) => err);
   return data;
 }
 
-export const deleteFollower=(user,id)=>{
-  const requestOptions={
-    method :"DELETE",
-    headers:{
-      "Content-Type":"application/json"
+export const deleteFollower = (user, id) => {
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
     },
-    body:JSON.stringify({user:user,id:id})
+    body: JSON.stringify({ user: user, id: id })
   }
-  const data= fetch("/user/removeFollower", requestOptions)
-  .then((res)=>res.json())
-  .then((data)=>data)
-  .catch((err)=>err);
+  const data = fetch(url + "/user/removeFollower", requestOptions)
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((err) => err);
   return data;
 }

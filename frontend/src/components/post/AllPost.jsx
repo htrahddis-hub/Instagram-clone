@@ -23,7 +23,7 @@ const AllPost = (props) => {
 
   return (
     <div className="center mt-3">
-      {allPostsData.length!=0 ? allPostsData.map((post, index) => (
+      {allPostsData.length!==0 ? allPostsData.map((post, index) => (
         <div
           className="center m-2"
           style={{ minWidth: "30%", maxWidth: "400px" }}

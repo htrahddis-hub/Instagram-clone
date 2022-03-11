@@ -11,7 +11,7 @@ const Search = () => {
 
   const handleSearch = () => {
     const data = getUserList(searchText);
-    data.then((data) => (console.log(data) ,setSearchResult(data)))
+    data.then((data) => {console.log(data); return setSearchResult(data);})
       .catch((err) => console.error(err));
   }
 
