@@ -44,21 +44,8 @@
   flex-direction: column;
 }
 
-.profile-post-wrapper{
-  min-width: 30%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-post {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.profile-post img {
-  width: 100%;
-  min-width: 100%;
+.postimage{
+  height:400px;
 }
 
 .break{

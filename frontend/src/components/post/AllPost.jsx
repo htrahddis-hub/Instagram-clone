@@ -22,7 +22,7 @@ const AllPost = (props) => {
   }, [props.user]);
 
   return (
-    <div className="center mt-3">
+    <div className="center mt-5">
       {allPostsData.length!==0 ? allPostsData.map((post, index) => (
         <div
           className="center m-2"

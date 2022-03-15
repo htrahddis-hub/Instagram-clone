@@ -8,6 +8,7 @@ const AlertDissimable = (props) => {
     return (
       <Alert
         variant={props.variant}
+        style={{marginTop:"57px"}}
         onClose={() => {
           props.deleteAlert();
           setShow(false);

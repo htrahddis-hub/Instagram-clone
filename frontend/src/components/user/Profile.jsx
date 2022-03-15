@@ -118,11 +118,9 @@ const Profile = (props) => {
       </div>
       <div className="break"></div>
       <div className="profile-posts-wrapper">
-        <div className="profile-posts">
           {posts && posts.length > 0 ? posts.map((post, idx) => {
-            return <img src={post.photo.asset.url} key={idx} />
-          }) : null}
-        </div>
+            return <div className="profile-posts"> <img className="postimage" src={post.photo.asset.url} key={idx} />
+          </div>}) : null}
       </div>
     </div>
   )
