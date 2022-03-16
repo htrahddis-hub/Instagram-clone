@@ -17,7 +17,7 @@ function App() {
   const location = useLocation();
   return (
     <div className="fill-parent">
-      {location.pathname!=='/login'?<nav className="p-2 mb-3 border-bottom fixed-top blur">
+      {location.pathname!=='/login' && location.pathname!=='/sign-up'?<nav className="p-2 mb-3 border-bottom fixed-top blur">
         <div className="container ">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">

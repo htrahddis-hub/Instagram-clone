@@ -13,6 +13,7 @@ const AlertDissimable = (props) => {
           props.deleteAlert();
           setShow(false);
         }}
+        className="mb-0"
         dismissible>
         {props.message}
       </Alert>
