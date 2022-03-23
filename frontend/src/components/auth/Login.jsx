@@ -69,7 +69,7 @@ const Login = (props) => {
                 <div class="carousel-item active">
                   <img src="https://images.freeimages.com/images/large-previews/fa1/the-spirit-of-sxc-1199620.jpg" alt="Login image" class="w-100 vh-100 py-5" style={{ objectFit: "cover", objectPosition: "left" }} />
                 </div>
-                <div class="carousel-item">
+                <div className="carousel-item">
                   <img src="https://images.freeimages.com/images/large-previews/c0d/girls-at-christmas-tree-1239755.jpg" alt="Login image" class="w-100 vh-100 py-5" style={{ objectFit: "cover", objectPosition: "left" }} />
                 </div>
                 <div class="carousel-item">
