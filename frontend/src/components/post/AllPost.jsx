@@ -15,7 +15,7 @@ const AllPost = (props) => {
     else {
       const data = getPostsOfFollowing(props.user);
       data.then((data) => {
-        console.log(data);
+        //console.log(data);
         return setAllPostsData(data)
       })
         .catch((err) => console.error(err));
@@ -50,33 +50,33 @@ const AllPost = (props) => {
     //   )) : <p>No posts to show</p>}
     // </div>
     <>
-    <div class="container mt-5 pt-4 mb-5">
-      <div class="row d-flex align-items-center justify-content-center mb-5">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="d-flex justify-content-between p-2 px-3">
-              <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" class="rounded-circle" />
-                <div class="d-flex flex-column ml-2"> <span class="font-weight-bold fw-bolder h5 p-2">Jeanette Sun</span>  </div>
+    <div className="container mt-5 pt-4 mb-5">
+      <div className="row d-flex align-items-center justify-content-center mb-5">
+        <div className="col-md-8">
+          <div className="card">
+            <div className="d-flex justify-content-between p-2 px-3">
+              <div className="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" className="rounded-circle" />
+                <div className="d-flex flex-column ml-2"> <span className="font-weight-bold fw-bolder h5 p-2">Jeanette Sun</span>  </div>
               </div>
-              <div class="d-flex flex-row mt-1 ellipsis"> <small class="mr-2">20 mins</small> <i class="fa fa-ellipsis-h"></i> </div>
-            </div> <img src="https://i.imgur.com/xhzhaGA.jpg" class="img-fluid" />
-            <div class="p-2">
-              <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+              <div className="d-flex flex-row mt-1 ellipsis"> <small className="mr-2">20 mins</small> <i className="fa fa-ellipsis-h"></i> </div>
+            </div> <img src="https://i.imgur.com/xhzhaGA.jpg" className="img-fluid" />
+            <div className="p-2">
+              <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="row d-flex align-items-center justify-content-center">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="d-flex justify-content-between p-2 px-3">
-              <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" class="rounded-circle" />
-                <div class="d-flex flex-column ml-2"> <span class="font-weight-bold fw-bolder h5 p-2">Jeanette Sun</span>  </div>
+      <div className="row d-flex align-items-center justify-content-center">
+        <div className="col-md-8">
+          <div className="card">
+            <div className="d-flex justify-content-between p-2 px-3">
+              <div className="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" className="rounded-circle" />
+                <div className="d-flex flex-column ml-2"> <span className="font-weight-bold fw-bolder h5 p-2">Jeanette Sun</span>  </div>
               </div>
-              <div class="d-flex flex-row mt-1 ellipsis"> <small class="mr-2">20 mins</small> <i class="fa fa-ellipsis-h"></i> </div>
-            </div> <img src="https://i.imgur.com/xhzhaGA.jpg" class="img-fluid" />
-            <div class="p-2">
-              <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+              <div className="d-flex flex-row mt-1 ellipsis"> <small className="mr-2">20 mins</small> <i className="fa fa-ellipsis-h"></i> </div>
+            </div> <img src="https://i.imgur.com/xhzhaGA.jpg" className="img-fluid" />
+            <div className="p-2">
+              <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
             </div>
           </div>
         </div>
