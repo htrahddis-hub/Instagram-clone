@@ -20,13 +20,13 @@ function App() {
       {location.pathname!=='/login' && location.pathname!=='/sign-up'?<nav className="p-2 mb-3 border-bottom fixed-top blur">
         <div className="container ">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+            <Link to="/" className="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
               <span className="fs-4 me-4">Instagram</span>
-            </a>
+            </Link>
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="/" className="nav-link px-2 link-secondary">Feed</a></li>
-              <li><a href="/search" className="nav-link px-2 link-dark">Search</a></li>
-              <li><a href="/create-post" className="nav-link px-2 link-dark">New Post</a></li>
+              <li><Link to="/" className="nav-link px-2 link-secondary">Feed</Link></li>
+              <li><Link to='/search'  className="nav-link px-2 link-dark">Search</Link></li>
+              <li><Link to="/create-post" className="nav-link px-2 link-dark">New Post</Link></li>
             </ul>
 
             <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -34,13 +34,11 @@ function App() {
             </form>
 
             {user ? <div className="dropdown text-end">
-              <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
-              </a>
+              <Link to="#" className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src={user.photo?user.photo.asset.url:"https://i0.wp.com/www.dc-hauswartungen.ch/wp-content/uploads/2018/01/dummy_profile.png"} alt="mdo" width="30" className="rounded-circle" />
+              </Link>
               <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a className="dropdown-item" href="#">Settings</a></li>
                 <li><a className="dropdown-item" href="#">Profile</a></li>
-                <li><hr className="dropdown-divider" /></li>
                 <li><a className="dropdown-item" href="#" onClick={() => { setUser(""); setAlert({ variant: 'warning', message: 'You are now signed out!' }) }}>Sign out</a></li>
               </ul>
             </div> :

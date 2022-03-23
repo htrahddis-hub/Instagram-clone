@@ -12,7 +12,7 @@ const Login = (props) => {
     data.then((data) => {
       if (data.length > 0) {
         props.setAlert({ variant: "success", message: "Successfully logged in!" });
-        props.setUser(data[0].username);
+        props.setUser(data[0]);
         navigate('/');
       }
       else {
