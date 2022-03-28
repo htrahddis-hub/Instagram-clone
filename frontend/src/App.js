@@ -1,7 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes, Link, useLocation ,Navigate} from 'react-router-dom';
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Route, Routes, Link, useLocation ,Navigate} from 'react-router-dom';
 import AllPost from './components/post/AllPost';
 import CreatePost from './components/post/CreatePost';
 import Profile from './components/user/Profile';
@@ -38,7 +36,7 @@ function App() {
                 <img src={user.photo?user.photo.asset.url:"https://i0.wp.com/www.dc-hauswartungen.ch/wp-content/uploads/2018/01/dummy_profile.png"} alt="mdo" width="30" className="rounded-circle" />
               </Link>
               <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a className="dropdown-item" href="#">Profile</a></li>
+                <li><Link className="dropdown-item" to={"/profile/"+user.username}>Profile</Link></li>
                 <li><a className="dropdown-item" href="#" onClick={() => { setUser(""); setAlert({ variant: 'warning', message: 'You are now signed out!' }) }}>Sign out</a></li>
               </ul>
             </div> :

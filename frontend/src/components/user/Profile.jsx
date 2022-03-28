@@ -17,7 +17,7 @@ const Profile = (props) => {
 
   const updateFollowing = (profile) => {
     for (let follower of profile.followers) {
-      if (follower.username === props.user) {
+      if (follower.username === props.user.username) {
         setFollowing(true);
         return;
       }
@@ -39,24 +39,24 @@ const Profile = (props) => {
         setProfileData(data[0]);
         setPosts(posts);
         updateFollowing(data[0]);
-        setOwner(props.user === data[0].username);
+        setOwner(props.user.username === data[0].username);
       })
     })
       .catch((err) => console.error(err));
   }
   React.useEffect(() => {
     updateProflie(params.username)
-  }, [params.username, props.user]);
+  }, [params.username, props.user.username]);
 
   const followClick = () => {
     if (owner) return;
     if (!following) {
-      addFollower(props.user,profileData._id)
-      .then((data)=>updateProflie(params.username));
+      addFollower(props.user.username, profileData._id)
+        .then((data) => updateProflie(params.username));
     }
-    else{
-      deleteFollower(props.user,profileData._id)
-      .then((data)=>updateProflie(params.username)); 
+    else {
+      deleteFollower(props.user.username, profileData._id)
+        .then((data) => updateProflie(params.username));
     }
   }
 
@@ -70,57 +70,80 @@ const Profile = (props) => {
   if (profileData == {}) return null;
 
   return (
-    <div className="profile">
+    <div className="mt-5 pt-5">
       <EditProfile
-        user={props.user}
+        user={props.user.username}
         show={editing}
         hideCallback={hideEdit}
         profileData={profileData}
         setAlert={props.setAlert}
       />
-      <div className="profile-banner">
-        <h4>@{profileData.username}</h4>
-        <div className="profile-data">
+      <div className="d-flex justify-content-center">
+        <div className="pe-5 fit-content">
           <img src={profileData.photo ? profileData.photo.asset.url : "/80.png"}
-            id="profile-img"
+            width='300px'
           />
-          <div className="vertical-data">
-            <p><strong>Posts</strong></p>
-            <h4>{posts ? posts.length : 0}</h4>
-          </div>
-          <div className="vertical-data">
-            <p><strong>Followers</strong></p>
-            <h4>{profileData.followers ? profileData.followers.length : 0}</h4>
-          </div>
-          <div className="vertical-data">
-            <p><strong>Following</strong></p>
-            <h4>{profileData.following ? profileData.following : 0}</h4>
-          </div>
-          <div className="follow-button">
-            {props.user && !owner ? (
-              <Button variant={following ? "danger" : "primary"} onClick={followClick}>
-                {following ? "Unfollow" : "Follow"}
-              </Button>
-            ) : null}
-            {props.user && owner ? <Button variant="primary" onClick={() => setEditing(true)}>Edit</Button> : null}
+        </div>
+        <div>
+          <h4>@{profileData.username}</h4>
+          <div className="">
+            <div className="">
+              <p><strong>Posts</strong></p>
+              <h4>{posts ? posts.length : 0}</h4>
+            </div>
+            <div className="">
+              <p><strong>Followers</strong></p>
+              <h4>{profileData.followers ? profileData.followers.length : 0}</h4>
+            </div>
+            <div className="">
+              <p><strong>Following</strong></p>
+              <h4>{profileData.following ? profileData.following : 0}</h4>
+            </div>
+            <div className="">
+              {props.user.username && !owner ? (
+                <Button variant={following ? "danger" : "primary"} onClick={followClick}>
+                  {following ? "Unfollow" : "Follow"}
+                </Button>
+              ) : null}
+              {props.user.username && owner ? <Button variant="primary" onClick={() => setEditing(true)}>Edit</Button> : null}
+            </div>
           </div>
         </div>
-        <div className="profile-bio">
-          <div className="profile-name">
+        <div className="">
+          <div className="">
             <strong>
               {(profileData.first_name ? profileData.first_name : "") + " " + (profileData.last_name ? profileData.last_name : "")}
             </strong>
           </div>
-          <div className="profile-text">
+          <div className="">
             {profileData.bio}
           </div>
         </div>
       </div>
-      <div className="break"></div>
-      <div className="profile-posts-wrapper">
+      <div className=" mt-5 mx-md-5 px-md-5 mx-sm-3 mx-lg-5 px-lg-5 border bg-light">
+        <div className="mt-3 row row-cols-1 row-cols-md-2 row-cols-sm-2 row-cols-lg-3 g-4 bd-highlight">
           {posts && posts.length > 0 ? posts.map((post, idx) => {
-            return <div className="profile-posts"> <img className="postimage" src={post.photo.asset.url} key={idx} />
-          </div>}) : null}
+            return <div className="col">
+              <div className="card h-100">
+                <img className="postimage" src={post.photo.asset.url} key={idx} />
+              </div>
+
+            </div>
+          })
+            : null}
+            {posts && posts.length > 0 ? posts.map((post, idx) => {
+            return <div className="col">
+              <div className="card">
+                <img className="postimage" src={post.photo.asset.url} key={idx} />
+              </div>
+
+            </div>
+          })
+            : null}
+        </div>
+      </div>
+      <div>
+
       </div>
     </div>
   )

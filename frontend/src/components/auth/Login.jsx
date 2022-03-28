@@ -65,7 +65,10 @@ const Login = (props) => {
           <div className="col-sm-6 px-0 d-none d-sm-block">
             <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
               <div className="carousel-inner">
-                <div className="carousel-item active">
+              <div className="carousel-item active">
+                  <img src="https://images.freeimages.com/images/large-previews/89b/black-island-1376887.jpg" alt="Login image" className="w-100 vh-100 py-5" style={{ objectFit: "cover", objectPosition: "left" }} />
+                </div>
+                <div className="carousel-item ">
                   <img src="https://images.freeimages.com/images/large-previews/fa1/the-spirit-of-sxc-1199620.jpg" alt="Login image" className="w-100 vh-100 py-5" style={{ objectFit: "cover", objectPosition: "left" }} />
                 </div>
                 <div className="carousel-item">

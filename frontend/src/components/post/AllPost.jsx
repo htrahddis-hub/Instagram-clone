@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
 import { getAllPosts, getPostsOfFollowing } from '../../api/post';
 
 const AllPost = (props) => {
@@ -57,10 +56,10 @@ const AllPost = (props) => {
         <div className="col-md-8">
           <div className="card">
             <div className="d-flex justify-content-between p-2 px-3">
-              <div className="d-flex flex-row align-items-center"> <img src={post.pro?post.pro.asset.url:"https://i0.wp.com/www.dc-hauswartungen.ch/wp-content/uploads/2018/01/dummy_profile.png"} width="42" height="42" className="rounded-circle" />
-                <div className="d-flex flex-column ml-2"> <span className="font-weight-bold fw-bolder h5 p-2">{post.username}</span>  </div>
-              </div>
-              <div className="d-flex flex-row mt-1 ellipsis"> <small className="mr-2">{post._createdAt}</small> <i className="fa fa-ellipsis-h"></i> </div>
+              <Link to="/search" style={{all: 'unset',cursor:'pointer'}} className=''><div className="d-flex flex-row align-items-center"> <img src={post.pro?post.pro.asset.url:"https://i0.wp.com/www.dc-hauswartungen.ch/wp-content/uploads/2018/01/dummy_profile.png"} width="42" height="42" className="rounded-circle" />
+                <div className="d-flex flex-column ml-2"> <span className="h4 p-2 onhover mb-0">{post.username}</span>  </div>
+              </div></Link>
+              <div className="d-flex flex-row mt-1 ellipsis"> <small className="mr-2"> {post._createdAt}</small> <i className="fa fa-ellipsis-h"></i> </div>
             </div> <img src={post.photo.asset.url} className="img-fluid" />
             <div className="p-2">
               <p className="text-justify">{post.description}</p>
