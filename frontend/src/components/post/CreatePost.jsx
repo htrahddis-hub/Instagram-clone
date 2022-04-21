@@ -22,7 +22,7 @@ const CreatePost = (props) => {
 
   const makePost = (event) => {
     const formData = new FormData();
-    formData.append('user', props.user);
+    formData.append('user', props.user.username);
     formData.append('caption', caption);
     formData.append('file', file);
     const data = createPost(formData);
