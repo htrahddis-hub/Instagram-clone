@@ -1,6 +1,6 @@
 import SanityClient from "./client.js";
 import { createReadStream } from "fs";
-import { basename } from 'path';
+import { basename } from "path";
 import { nanoid } from "nanoid";
 
 export const createUser = (firstName, lastName, username) => {
@@ -9,7 +9,7 @@ export const createUser = (firstName, lastName, username) => {
     first_name: firstName,
     last_name: lastName,
     username: username,
-    created_at: new Date()
+    created_at: new Date(),
   });
 };
 
@@ -28,51 +28,69 @@ export const getProfile = (user) => {
     }`,
     { username: user }
   );
-}
+};
 
 export const getUserId = (user) => {
-  return SanityClient.fetch(`*[_type == "user" && username == $username]{
+  return SanityClient.fetch(
+    `*[_type == "user" && username == $username]{
     _id
-  }`, { username: user })
-}
+  }`,
+    { username: user }
+  );
+};
 
 export const createPost = (user, caption, image) => {
-  return SanityClient.assets.upload("image", createReadStream(image.path), {
-    filename: basename(image.path)
-  }).then((data) => {
-    const ids = getUserId(user);
-    ids.then((getId) => {
-      const id = getId[0]._id;
-      return SanityClient.create({
-        _type: "post",
-        author: { _ref: id },
-        photo: { asset: { _ref: data._id } },
-        description: caption,
-        created_at: new Date()
-      });
+  return SanityClient.assets
+    .upload("image", createReadStream(image.path), {
+      filename: basename(image.path),
     })
-  });
+    .then((data) => {
+      const ids = getUserId(user);
+      ids.then((getId) => {
+        const id = getId[0]._id;
+        return SanityClient.create({
+          _type: "post",
+          author: { _ref: id },
+          photo: { asset: { _ref: data._id } },
+          description: caption,
+          created_at: new Date(),
+        });
+      });
+    });
 };
 
 export const getAllPosts = () => {
   return SanityClient.fetch(`*[_type == "post"]{
     ...,
     "username": author->username,
+    "pro":author->photo{
+      asset->{
+        _id,
+        url
+      }
+    },
     photo{
       asset->{
         _id,
         url
       }
     }
-  }`)
-}
+  }`);
+};
 
 export const getPostsOfFollowing = (username) => {
-  return SanityClient.fetch(`*[_type == "user" && username == $username]{
+  return SanityClient.fetch(
+    `*[_type == "user" && username == $username]{
     following[]->{
       "posts": *[_type == "post" && references(^._id)]{
         ...,
         "username": author->username,
+        "pro":author->photo{
+          asset->{
+            _id,
+            url
+          }
+        },
         phtot{
           asset->{
             _id,
@@ -81,12 +99,14 @@ export const getPostsOfFollowing = (username) => {
         }
       }
     }
-  }`, { username }
+  }`,
+    { username }
   );
 };
 
 export const searchForUsername = (text) => {
-  return SanityClient.fetch(`*[_type == "user" && username match "${text}*"]{
+  return SanityClient.fetch(
+    `*[_type == "user" && username match "${text}*"]{
     ...,
     "followers": count(*[_type == "user" && references(^._id)]),
     photo{
@@ -95,11 +115,14 @@ export const searchForUsername = (text) => {
         url
       }
     }
-  }`, { text });
-}
+  }`,
+    { text }
+  );
+};
 
 export const getPosts = (username) => {
-  return SanityClient.fetch(`*[_type == "post" && author->username == $user]{
+  return SanityClient.fetch(
+    `*[_type == "post" && author->username == $user]{
     ...,
     "username": author->username,
     photo{
@@ -108,54 +131,61 @@ export const getPosts = (username) => {
         url
       }
     }
-  }`, { user: username })
-}
+  }`,
+    { user: username }
+  );
+};
 
 export const updateProfile = (user, first_name, last_name, bio, image) => {
   if (image) {
-    return SanityClient.assets.upload("image", createReadStream(image.path), { filename: basename(image.path) })
+    return SanityClient.assets
+      .upload("image", createReadStream(image.path), {
+        filename: basename(image.path),
+      })
       .then((data) => {
         const id = getUserId(user);
         return id.then((ids) =>
-          SanityClient.patch(ids[0]._id).set({
-            first_name,
-            last_name,
-            bio,
-            photo: { asset: { _ref: data._id } }
-          }).commit()
-        )
-      })
-  }
-  else {
+          SanityClient.patch(ids[0]._id)
+            .set({
+              first_name,
+              last_name,
+              bio,
+              photo: { asset: { _ref: data._id } },
+            })
+            .commit()
+        );
+      });
+  } else {
     const id = getUserId(user);
     return id.then((ids) =>
-      SanityClient.patch(ids[0]._id).set({
-        first_name,
-        last_name,
-        bio
-      }).commit()
-    )
+      SanityClient.patch(ids[0]._id)
+        .set({
+          first_name,
+          last_name,
+          bio,
+        })
+        .commit()
+    );
   }
-}
+};
 
 export const addFollower = (user, followingId) => {
   const id = getUserId(user);
   return id.then((ids) =>
-    SanityClient
-      .patch(ids[0]._id)
+    SanityClient.patch(ids[0]._id)
       .setIfMissing({ following: [] })
       .insert("after", "following[-1]", [
         { _ref: followingId, _key: nanoid(), _type: "reference" },
       ])
-      .commit())
-}
+      .commit()
+  );
+};
 
 export const removeFollower = (user, followingId) => {
   const id = getUserId(user);
   return id.then((ids) =>
-    SanityClient
-      .patch(ids[0]._id)
+    SanityClient.patch(ids[0]._id)
       .unset([`following[_ref=="${followingId}"]`])
       .commit()
   );
-}
+};
